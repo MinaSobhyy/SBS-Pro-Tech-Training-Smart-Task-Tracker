@@ -28,20 +28,26 @@ public class Task {
     private String description;
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskStatus status = TaskStatus.PENDING;
+
 
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description) {
+    public Task(Long id, String title, String description, TaskStatus status) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.status = status;
     }
 
-    public Task(String title, String description) {
+    public Task(String title, String description, TaskStatus status) {
         this.title = title;
         this.description = description;
+        this.status = status;
     }
 
     @PrePersist
@@ -79,5 +85,13 @@ public class Task {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 }

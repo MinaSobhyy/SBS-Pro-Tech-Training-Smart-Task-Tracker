@@ -27,6 +27,11 @@ public class TaskController {
         return taskService.getTaskById(taskId);
     }
 
+    @GetMapping("/status")
+    public List<Task> getTasksByStatus(@RequestParam TaskStatus status) {
+        return taskService.getTasksByStatus(status);
+    }
+
     @PostMapping
     public void createTask(@RequestBody Task task) {
         taskService.addNewTask(task);
@@ -41,7 +46,8 @@ public class TaskController {
     public void updateTask(
             @PathVariable("taskId") Long taskId,
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) String description) {
-        taskService.updateTask(taskId, title, description);
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) TaskStatus status) {
+        taskService.updateTask(taskId, title, description, status);
     }
 }

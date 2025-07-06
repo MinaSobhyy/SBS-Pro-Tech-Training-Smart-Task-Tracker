@@ -14,12 +14,14 @@ public class TaskConfig {
         return args -> {
             Task t1 = new Task(
                     "Setup development environment",
-                    "Install Java, Postgres, and Spring Boot tools"
+                    "Install Java, Postgres, and Spring Boot tools",
+                    TaskStatus.IN_PROGRESS
             );
 
             Task t2 = new Task(
                     "Create first API",
-                    "Build and test CRUD API for Task entity"
+                    "Build and test CRUD API for Task entity",
+                    TaskStatus.IN_PROGRESS
             );
 
             repository.saveAll(

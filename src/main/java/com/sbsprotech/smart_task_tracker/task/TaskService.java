@@ -29,6 +29,13 @@ public class TaskService {
                 ));
     }
 
+    public List<Task> getTasksByStatus(TaskStatus status) {
+        return taskRepository.findAll()
+                .stream()
+                .filter(task -> task.getStatus() == status)
+                .toList();
+    }
+
     public void addNewTask(Task task) {
         Optional<Task> taskByTitle = taskRepository.findByTitle(task.getTitle());
         if (taskByTitle.isPresent()) {
@@ -49,7 +56,7 @@ public class TaskService {
     }
 
     @Transactional
-    public void updateTask(Long taskId, String title, String description) {
+    public void updateTask(Long taskId, String title, String description, TaskStatus status) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(()-> new IllegalStateException(
                         "task with id " + taskId + " doesn't exist"
@@ -64,6 +71,10 @@ public class TaskService {
 
         if (description != null && !description.isEmpty() && !Objects.equals(task.getDescription(), description)) {
             task.setDescription(description);
+        }
+
+        if (status != null && !Objects.equals(task.getStatus(), status)) {
+            task.setStatus(status);
         }
     }
 }
